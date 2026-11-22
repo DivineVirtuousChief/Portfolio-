@@ -21,7 +21,7 @@ Until formally approved, these tiers are a proposed BGLA internal governance mod
 | Level | Name | Permitted behavior | Prohibited behavior | Human control |
 |---|---|---|---|---|
 | L1 | Advisory | Read-only retrieval, analysis, summarization, recommendations | External actions, writes, state transitions, tool execution that changes state | Human performs every action |
-| L2 | Bounded Assist | Draft artifacts, proposed changes, plans, and review packages; read-only tool use where authorized | Consequential writes or external actions without approval; self-approval | Human approval before designated state changes and external actions |
+| L2 | Bounded Assist | Draft artifacts, proposed changes, plans, and review packages; read-only tool use where authorized | Any state-changing operation or external action without prior human approval; self-approval | Human approval before every state-changing operation and external action |
 | L3 | Governed Automation | Execute a narrow allowlist of pre-approved operations inside a valid OperatingEnvelope | Self-expansion, policy changes, privilege escalation, envelope modification, prohibited actions, bypass of human gates | Human approves delegation and retained sign-off states; continuous controls and revocation |
 
 ### Autonomy invariants
