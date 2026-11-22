@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   generate-clients:
@@ -57,6 +57,22 @@ jobs:
           test -f generated/typescript-fetch/index.ts
           test -f generated/typescript-fetch/apis/PetsApi.ts
           test -f generated/typescript-fetch/models/Pet.ts
+
+      - name: Commit generated clients to the pull request branch
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        working-directory: openapi-codegen
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f generated/
+          if git diff --cached --quiet; then
+            echo "Generated clients are already up to date."
+          else
+            git commit -m "chore: add generated JavaScript and TypeScript clients"
+            git push origin "HEAD:${BRANCH_NAME}"
+          fi
 
       - name: Upload generated clients for review
         uses: actions/upload-artifact@v4
