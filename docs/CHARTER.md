@@ -74,7 +74,7 @@ Approval must be attributable, purpose-bound, time-bounded where appropriate, an
 Autonomy classification describes what a system may do, not how risky its use is. The canonical L1–L3 definitions are in [Risk and Autonomy Tier Matrix](architecture/risk-autonomy-tier-matrix.md).
 
 - **L1 — Advisory:** Read-only retrieval, analysis, recommendations, and explanations. A human performs all external or state-changing actions.
-- **L2 — Bounded Assist:** The system may prepare drafts, proposed changes, and execution plans. A human approval gate is required before consequential state changes or external actions.
+- **L2 — Bounded Assist:** The system may prepare drafts, proposed changes, and execution plans. A human approval gate is required before every state-changing operation and every external action.
 - **L3 — Governed Automation:** The system may execute only explicitly delegated, pre-approved operations within a valid OperatingEnvelope. It cannot expand its envelope, alter its own classification, or perform actions reserved for human approval.
 
 L1 is the default classification until an authorized owner approves another level. Classification is assigned to a defined system version, deployment, purpose, tenant, and operating context; it is not a permanent blanket permission.
