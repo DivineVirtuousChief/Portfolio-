@@ -37,3 +37,7 @@ Adriana Leon, MBA is an AI governance and technology leader, healthcare transfor
 Use GitHub Issues on the relevant public repository for project-specific questions. Do not submit credentials, personal information, protected health information, or confidential production records.
 
 **VERITAS ANTE ASSERTIONEM** — Truth before assertion.
+
+## Agent knowledge infrastructure
+
+The [`agent-knowledge/`](./agent-knowledge/) module provides a governed TypeScript foundation for document ingestion, chunking, access-scoped retrieval, and source citations. It includes a lexical baseline and provider interfaces for future embeddings and vector stores. See its README for safety boundaries, setup, and limitations.
