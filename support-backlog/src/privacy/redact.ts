@@ -9,10 +9,10 @@ export interface RedactionResult {
  */
 export function redactSensitiveText(input: string): RedactionResult {
   const patterns: RegExp[] = [
-    /\\bBearer\\s+[A-Za-z0-9._~+\\/-]+=*/gi,
-    /\\b(?:api[_-]?key|access[_-]?token|client[_-]?secret|password)\\s*[:=]\\s*[^\\s,;]+/gi,
-    /\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b/gi,
-    /\\b(?:\\+?1[ .-]?)?\\(?\\d{3}\\)?[ .-]\\d{3}[ .-]\\d{4}\\b/g
+    /\bBearer\s+[A-Za-z0-9._~+\/-]+=*/gi,
+    /\b(?:api[_-]?key|access[_-]?token|client[_-]?secret|password)\s*[:=]\s*[^\s,;]+/gi,
+    /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi,
+    /\b(?:\+?1[ .-]?)?\(?\d{3}\)?[ .-]\d{3}[ .-]\d{4}\b/g
   ];
 
   let value = input;
