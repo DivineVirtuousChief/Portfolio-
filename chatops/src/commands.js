@@ -1,7 +1,7 @@
-const ISSUE_NUMBER=/^[1-9]\\d{0,8}$/;
+const ISSUE_NUMBER=/^[1-9]\d{0,8}$/;
 export function parseCommand(text) {
   if(typeof text!=="string" || text.length>500) return {ok:false,error:"invalid_input"};
-  const parts=text.trim().split(/\\s+/).filter(Boolean);
+  const parts=text.trim().split(/\s+/).filter(Boolean);
   if(!parts.length) return {ok:false,error:"empty_command"};
   const [root,...args]=parts;
   if(root!=="/bgla") return {ok:false,error:"unknown_command"};
