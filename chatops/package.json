@@ -1,0 +1,1 @@
+{"name":"@bgla/governed-chatops","version":"0.1.0","private":true,"type":"module","scripts":{"test":"node --test","check":"node --check src/security.js && node --check src/commands.js && node --check src/policy.js && node --test"},"engines":{"node":">=20"}}
