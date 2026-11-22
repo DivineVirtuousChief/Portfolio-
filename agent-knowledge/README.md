@@ -8,6 +8,10 @@ The canonical target architecture is documented in [ADR-0001](../docs/adr/0001-b
 
 Every protected Tier 2–4 operation must receive a trusted, validated `SecurityContext`. See `src/security-context.ts`. The context is created by the authenticated server boundary, never by model output. Structural validation is not a substitute for identity-provider token verification or a policy decision.
 
+## Architecture documentation
+
+Start with the [BGLA architecture documentation index](../docs/architecture/README.md). The package includes architecture/data flows, security and authorization, knowledge lifecycle, retrieval and reasoning, agent memory governance, and a threat model. The decision record set is [ADR-0001](../docs/adr/0001-bgla-knowledge-architecture.md), [ADR-0002](../docs/adr/0002-security-context-and-authorization.md), [ADR-0003](../docs/adr/0003-provenance-and-lifecycle-invalidation.md), and [ADR-0004](../docs/adr/0004-agent-memory-governance.md).
+
 ## Current capabilities
 
 - Document ingestion and deterministic chunking.
