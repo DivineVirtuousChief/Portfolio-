@@ -1,7 +1,7 @@
 import type { KnowledgeChunk, RetrievalOptions, RetrievalResult, Retriever } from "./types.js";
 
 const tokenize = (text: string): string[] =>
-  text.toLocaleLowerCase().match(/[\\p{L}\\p{N}_-]{2,}/gu) ?? [];
+  text.toLocaleLowerCase().match(/[a-z0-9_-]{2,}/g) ?? [];
 
 function canRead(chunk: KnowledgeChunk, callerScopes: string[]): boolean {
   return chunk.accessScopes.length === 0 || chunk.accessScopes.some(scope => callerScopes.includes(scope));
