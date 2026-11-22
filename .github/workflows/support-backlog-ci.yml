@@ -1,0 +1,26 @@
+name: Support Backlog CI
+
+on:
+  push:
+    paths:
+      - "support-backlog/**"
+      - ".github/workflows/support-backlog-ci.yml"
+  pull_request:
+    paths:
+      - "support-backlog/**"
+      - ".github/workflows/support-backlog-ci.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: support-backlog
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npm run typecheck
+      - run: npm test
