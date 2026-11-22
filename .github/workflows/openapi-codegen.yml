@@ -54,7 +54,9 @@ jobs:
           test -d generated/javascript
           test -d generated/typescript-fetch
           test -f generated/javascript/README.md
-          test -f generated/typescript-fetch/README.md
+          test -f generated/typescript-fetch/index.ts
+          test -f generated/typescript-fetch/apis/PetsApi.ts
+          test -f generated/typescript-fetch/models/Pet.ts
 
       - name: Upload generated clients for review
         uses: actions/upload-artifact@v4
