@@ -1,7 +1,7 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 export function verifySlackRequest({ signingSecret, rawBody, timestamp, signature, nowSeconds = Math.floor(Date.now()/1000), toleranceSeconds = 300 }) {
   if (typeof signingSecret !== "string" || !signingSecret || typeof rawBody !== "string" ||
-      typeof timestamp !== "string" || !/^\\d{1,12}$/.test(timestamp) ||
+      typeof timestamp !== "string" || !/^\d{1,12}$/.test(timestamp) ||
       typeof signature !== "string" || !/^v0=[a-f0-9]{64}$/i.test(signature) ||
       !Number.isInteger(nowSeconds) || !Number.isInteger(toleranceSeconds) || toleranceSeconds < 0) return false;
   const requestTime = Number(timestamp);
