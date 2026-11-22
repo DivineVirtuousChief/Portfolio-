@@ -29,6 +29,8 @@ Tier 1 is not a sequential stage. It is enforced at every protected operation in
 - [Retrieval and reasoning](retrieval-and-reasoning.md)
 - [Agent memory governance](agent-memory-governance.md)
 - [Threat model and assurance](threat-model.md)
+- [Six-milestone implementation roadmap](implementation-roadmap.md)
+- [ADR index](../adr/README.md)
 - [ADR-0001: Overall architecture](../adr/0001-bgla-knowledge-architecture.md)
 - [ADR-0002: Security context and authorization boundary](../adr/0002-security-context-and-authorization.md)
 - [ADR-0003: Provenance and lifecycle invalidation](../adr/0003-provenance-and-lifecycle-invalidation.md)
