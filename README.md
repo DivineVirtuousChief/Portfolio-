@@ -37,3 +37,9 @@ Adriana Leon, MBA is an AI governance and technology leader, healthcare transfor
 Use GitHub Issues on the relevant public repository for project-specific questions. Do not submit credentials, personal information, protected health information, or confidential production records.
 
 **VERITAS ANTE ASSERTIONEM** — Truth before assertion.
+
+## Developer tooling
+
+### Swagger / OpenAPI client generation
+
+The [`openapi-codegen/`](./openapi-codegen/) starter demonstrates specification validation and JavaScript / TypeScript client generation using OpenAPI Generator. See its README for prerequisites, commands, and security notes. The generator-selection rationale is documented in [ADR-001](./docs/decisions/ADR-001-openapi-generator-selection.md).
