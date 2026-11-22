@@ -112,3 +112,17 @@ Retrieved content is untrusted reference data, never executable instructions or 
 ## Governing principle
 
 **VERITAS ANTE ASSERTIONEM — Truth Before Assertion.** Intelligence may expand through knowledge, but access remains bounded by authorization, memory by retention policy, and consequential decisions by legitimate human and institutional authority.
+
+
+## Related architecture documentation and decisions
+
+- [Architecture index and implementation status](../architecture/README.md)
+- [Architecture and data flows](../architecture/architecture-and-flows.md)
+- [Security and authorization model](../architecture/security-and-authorization.md)
+- [Knowledge lifecycle and provenance](../architecture/knowledge-lifecycle.md)
+- [Retrieval and reasoning](../architecture/retrieval-and-reasoning.md)
+- [Agent memory governance](../architecture/agent-memory-governance.md)
+- [Threat model and assurance](../architecture/threat-model.md)
+- [ADR-0002: SecurityContext and authorization](0002-security-context-and-authorization.md)
+- [ADR-0003: Provenance and lifecycle invalidation](0003-provenance-and-lifecycle-invalidation.md)
+- [ADR-0004: Agent memory governance](0004-agent-memory-governance.md)
