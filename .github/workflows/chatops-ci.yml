@@ -24,11 +24,12 @@ jobs:
     needs: test
     if: always()
     permissions: {}
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
       - name: Notify Slack if configured
-        if: ${{ secrets.SLACK_WEBHOOK_URL != '' }}
+        if: env.SLACK_WEBHOOK_URL != ''
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           RESULT: ${{ needs.test.result }}
           REPOSITORY: ${{ github.repository }}
           REF_NAME: ${{ github.ref_name }}
@@ -37,5 +38,5 @@ jobs:
           payload="$(jq -n --arg result "$RESULT" --arg repo "$REPOSITORY" --arg ref "$REF_NAME" --arg url "$RUN_URL" '{text: ("BGLA ChatOps CI: " + $result + " | " + $repo + " | " + $ref + " | " + $url)}')"
           curl --fail --silent --show-error --header "Content-Type: application/json" --data "$payload" "$SLACK_WEBHOOK_URL"
       - name: Skip when no webhook is configured
-        if: ${{ secrets.SLACK_WEBHOOK_URL == '' }}
+        if: env.SLACK_WEBHOOK_URL == ''
         run: echo "SLACK_WEBHOOK_URL is not configured; notification skipped."
