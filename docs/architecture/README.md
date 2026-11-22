@@ -1,12 +1,19 @@
 # BGLA Governed Agent Knowledge Architecture
 
 **Architecture baseline:** ADR-0001  
+**Governance baseline:** [BGLA Constitutional Governance Charter](../CHARTER.md) — proposed, pending ratification  
 **Status:** Target architecture; staged implementation  
 **Principle:** VERITAS ANTE ASSERTIONEM — Truth Before Assertion.
 
 ## Purpose
 
 This documentation defines the architecture, control boundaries, operational contracts, and evidence required to build an enterprise-grade knowledge infrastructure for AI agents. It separates what is already implemented from target capabilities and production obligations.
+
+## Constitutional governance
+
+The [BGLA Constitutional Governance Charter](../CHARTER.md) defines Human & Institutional Authority, delegation, approval boundaries, and the six-phase implementation order. The [Risk & Autonomy Tier Matrix](risk-autonomy-tier-matrix.md) defines the independent L1–L3 autonomy and R0–R4 risk classifications.
+
+The Charter and matrix are proposed baselines until formally ratified. Publication does not constitute signature, adoption, or institutional approval.
 
 ## Architecture at a glance
 
@@ -23,6 +30,8 @@ Tier 1 is not a sequential stage. It is enforced at every protected operation in
 
 ## Documentation map
 
+- [Constitutional Governance Charter](../CHARTER.md)
+- [Risk and Autonomy Tier Matrix](risk-autonomy-tier-matrix.md)
 - [Architecture and flows](architecture-and-flows.md)
 - [Security and authorization model](security-and-authorization.md)
 - [Knowledge lifecycle and provenance](knowledge-lifecycle.md)
@@ -40,6 +49,8 @@ Tier 1 is not a sequential stage. It is enforced at every protected operation in
 
 The current module provides deterministic chunking, source metadata, lexical retrieval, scope filtering, citations, provider interfaces, and a structural/temporal SecurityContext validator with tests.
 
+The Charter and matrix are governance documentation drafts. They are not yet ratified, and they do not implement runtime controls.
+
 The following remain roadmap work and must not be represented as implemented until delivered and tested: production identity verification, policy decision integration, end-to-end tenant isolation, document connectors, durable stores, embeddings, vector search, hybrid ranking, knowledge graphs, persistent agent memory, cascade deletion, and production evaluation.
 
 ## Engineering roadmap
@@ -50,6 +61,15 @@ The following remain roadmap work and must not be represented as implemented unt
 4. [M4 — Authorization-aware knowledge graphs](https://github.com/DivineVirtuousChief/Portfolio-/issues/11)
 5. [M5 — Provenance-aware agent memory](https://github.com/DivineVirtuousChief/Portfolio-/issues/12)
 6. [M6 — Quality, security, and retrieval evaluation](https://github.com/DivineVirtuousChief/Portfolio-/issues/13)
+
+## Constitutional implementation sequence
+
+1. Governance Charter and system classification — [Issue #16](https://github.com/DivineVirtuousChief/Portfolio-/issues/16)
+2. SovereignAccessControl policy interface.
+3. Operating-Envelope specification.
+4. Safety and containment requirements.
+5. Evidence ledger and traceability model.
+6. Independent assurance and authorization gates.
 
 ## Architecture invariants
 
