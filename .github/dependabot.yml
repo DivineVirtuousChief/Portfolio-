@@ -5,23 +5,3 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
-  - package-ecosystem: npm
-    directory: /support-backlog
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
-  - package-ecosystem: npm
-    directory: /chatops
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
-  - package-ecosystem: npm
-    directory: /agent-knowledge
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
-  - package-ecosystem: npm
-    directory: /openapi-codegen
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
