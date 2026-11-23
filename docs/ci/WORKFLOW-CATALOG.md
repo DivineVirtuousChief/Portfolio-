@@ -38,7 +38,7 @@ Those PRs remain separate changes. Their workflows are not present on main at th
 - Issue triage does not assign people, close issues, or make priority decisions.
 - The evidence archive is not an immutable audit ledger, signed attestation, or long-term evidence repository.
 - Secret scanning and CodeQL depend on GitHub Actions execution and repository feature availability.
-- Dependabot requires dependency graph and security configuration to be enabled.
+- Dependabot is configured for GitHub Actions updates. Add npm package directories after the corresponding module packages are merged into the default branch.
 
 ## Repository settings to review
 
