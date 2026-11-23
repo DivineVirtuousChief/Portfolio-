@@ -9,6 +9,14 @@ jobs:
   dependency-review:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/dependency-review-action@da24556b548a50705dd671f47852072ea4c105d9
+      - name: Explain dependency graph prerequisite
+        if: vars.BGLA_DEPENDENCY_REVIEW_ENABLED != 'true'
+        run: |
+          echo "::warning::Dependency Review is disabled until the repository dependency graph is enabled and BGLA_DEPENDENCY_REVIEW_ENABLED is set to true."
+          echo "Dependency Review skipped: enable the dependency graph, then set repository variable BGLA_DEPENDENCY_REVIEW_ENABLED=true." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Review dependency changes
+        if: vars.BGLA_DEPENDENCY_REVIEW_ENABLED == 'true'
+        uses: actions/dependency-review-action@da24556b548a50705dd671f47852072ea4c105d9
         with:
           fail-on-severity: high
