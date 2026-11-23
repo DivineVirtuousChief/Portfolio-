@@ -1,0 +1,30 @@
+name: API Contract Validation
+on:
+  pull_request:
+    paths:
+      - "api-specs/**"
+      - "contracts/**"
+      - "**/*.openapi.yaml"
+      - "**/*.openapi.json"
+      - ".github/workflows/api-contract-validation.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "22"
+      - name: Lint API contracts when present
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t specs < <(find api-specs contracts -type f \( -name '*.yaml' -o -name '*.yml' -o -name '*.json' \) 2>/dev/null | sort || true)
+          if [ "${#specs[@]}" -eq 0 ]; then
+            echo "No API contract files found in api-specs/ or contracts/."
+            exit 0
+          fi
+          npx --yes @redocly/cli@1.34.5 lint "${specs[@]}"
