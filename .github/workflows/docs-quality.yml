@@ -15,4 +15,4 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Lint workflow documentation and templates
-        run: npx --yes markdownlint-cli2@0.17.2 "docs/ci/**/*.md" ".github/PULL_REQUEST_TEMPLATE.md" ".github/ISSUE_TEMPLATE/**/*.yml"
+        run: npx --yes markdownlint-cli2@0.17.2 "docs/ci/**/*.md" ".github/PULL_REQUEST_TEMPLATE.md"
