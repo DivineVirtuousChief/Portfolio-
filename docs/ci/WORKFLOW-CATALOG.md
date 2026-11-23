@@ -11,7 +11,7 @@ This library provides cross-cutting CI, security, governance, documentation, tri
 | Node Package CI | Push, pull request, manual | Discovers Node packages and runs available typecheck, lint, test, and build scripts |
 | CodeQL Security Analysis | Push, pull request, weekly, manual | Static analysis for JavaScript and TypeScript |
 | Secret Scan | Push, pull request, manual | Scans repository history for exposed credentials |
-| Dependency Review | Pull request | Fails on newly introduced high-severity dependency vulnerabilities |
+| Dependency Review | Pull request | Fails on newly introduced high-severity dependency vulnerabilities when enabled |
 | API Contract Validation | Contract paths, manual | Lints contracts under api-specs/ and contracts/ |
 | Issue Triage | Issue opened or reopened | Applies initial labels using keyword rules |
 | Pull Request Governance | Pull request lifecycle | Requires summary, scope, validation, provenance, risk, and governance sections |
@@ -38,11 +38,12 @@ Those PRs remain separate changes. Their workflows are not present on main at th
 - Issue triage does not assign people, close issues, or make priority decisions.
 - The evidence archive is not an immutable audit ledger, signed attestation, or long-term evidence repository.
 - Secret scanning and CodeQL depend on GitHub Actions execution and repository feature availability.
+- Dependency Review is gated by the repository variable BGLA_DEPENDENCY_REVIEW_ENABLED=true. Enable the repository dependency graph first; until then, the check reports a skip rather than a false pass.
 - Dependabot is configured for GitHub Actions updates. Add npm package directories after the corresponding module packages are merged into the default branch.
 
 ## Repository settings to review
 
 1. Enable Actions and allow the selected pinned actions.
-2. Enable Dependabot alerts and the dependency graph where available.
+2. Enable the repository dependency graph and Dependabot alerts; then set BGLA_DEPENDENCY_REVIEW_ENABLED=true.
 3. Configure branch protection or rulesets separately; a workflow cannot enforce merge protection unless its check is required by repository settings.
 4. Review artifact retention and access before treating CI artifacts as regulated evidence.
