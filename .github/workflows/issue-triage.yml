@@ -1,0 +1,49 @@
+name: Issue Triage
+on:
+  issues:
+    types: [opened, reopened]
+permissions:
+  issues: write
+concurrency:
+  group: issue-triage-${{ github.event.issue.number }}
+  cancel-in-progress: false
+jobs:
+  classify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const text = String(issue.title) + "\n" + String(issue.body || "");
+            const normalized = text.toLowerCase();
+            const labels = new Set(["needs-triage"]);
+            if (/bug|error|broken|fails?|crash|defect/.test(normalized)) labels.add("type:bug");
+            else if (/feature|enhancement|request|would like/.test(normalized)) labels.add("type:feature");
+            else if (/question|how do i|help/.test(normalized)) labels.add("type:question");
+            if (/consumer|customer|complaint|voice of customer|capa|root cause|\brca\b/.test(normalized)) labels.add("area:consumer-intelligence");
+            if (/security|vulnerability|credential|secret|privacy/.test(normalized)) labels.add("area:security");
+            if (/openapi|swagger|api contract/.test(normalized)) labels.add("area:api");
+            const existing = await github.paginate(github.rest.issues.listLabelsForRepo, {
+              owner: context.repo.owner, repo: context.repo.repo, per_page: 100
+            });
+            const known = new Set(existing.map(label => label.name));
+            const palette = {
+              "needs-triage": "D4C5F9", "type:bug": "D73A4A",
+              "type:feature": "A2EEEF", "type:question": "D876E3",
+              "area:consumer-intelligence": "0E8A76",
+              "area:security": "B60205", "area:api": "1D76DB"
+            };
+            for (const name of labels) {
+              if (!known.has(name)) {
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  name, color: palette[name] || "EDEDED",
+                  description: "Managed by the BGLA initial issue triage workflow"
+                });
+              }
+            }
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: issue.number, labels: [...labels]
+            });

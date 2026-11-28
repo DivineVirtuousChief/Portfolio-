@@ -1,0 +1,49 @@
+name: CI Evidence Archive
+on:
+  workflow_run:
+    workflows:
+      - Node Package CI
+      - CodeQL Security Analysis
+      - Secret Scan
+      - Dependency Review
+      - API Contract Validation
+      - Issue Triage
+      - Pull Request Governance
+      - Documentation Quality
+      - Release Readiness (No Publishing)
+    types: [completed]
+permissions:
+  actions: read
+  contents: read
+jobs:
+  archive-run-metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
+        with:
+          script: |
+            const run = context.payload.workflow_run;
+            const record = {
+              schemaVersion: "1.0",
+              repository: context.repo,
+              workflowName: run.name,
+              workflowId: run.workflow_id,
+              runId: run.id,
+              runAttempt: run.run_attempt,
+              event: run.event,
+              headSha: run.head_sha,
+              headBranch: run.head_branch,
+              conclusion: run.conclusion,
+              status: run.status,
+              createdAt: run.created_at,
+              updatedAt: run.updated_at,
+              htmlUrl: run.html_url,
+              recordedAt: new Date().toISOString()
+            };
+            require("fs").writeFileSync("ci-run-evidence.json", JSON.stringify(record, null, 2) + "\n");
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ci-run-${{ github.event.workflow_run.id }}-attempt-${{ github.event.workflow_run.run_attempt }}
+          path: ci-run-evidence.json
+          if-no-files-found: error
+          retention-days: 30

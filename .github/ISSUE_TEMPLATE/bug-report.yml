@@ -1,0 +1,33 @@
+name: Bug report
+description: Report a reproducible defect in a BGLA project.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: "Do not include passwords, access tokens, payment data, government identifiers, or sensitive health information."
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior
+      description: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence references
+      description: Add sanitized log or artifact references. Do not upload sensitive records.
+    validations:
+      required: false

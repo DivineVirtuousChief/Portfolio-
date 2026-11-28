@@ -1,0 +1,45 @@
+name: Node Package CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: node-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "22"
+      - name: Install and validate discovered packages
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t manifests < <(find . -name package.json -not -path '*/node_modules/*' -not -path '*/generated/*' -not -path './.git/*' | sort)
+          if [ "${#manifests[@]}" -eq 0 ]; then
+            echo "No package.json files found; nothing to validate."
+            exit 0
+          fi
+          for manifest in "${manifests[@]}"; do
+            package_dir="$(dirname "$manifest")"
+            echo "::group::Validate $package_dir"
+            pushd "$package_dir" >/dev/null
+            if [ -f package-lock.json ]; then
+              npm ci --ignore-scripts --no-audit --no-fund
+            else
+              npm install --ignore-scripts --no-package-lock --no-audit --no-fund
+            fi
+            npm run --if-present typecheck
+            npm run --if-present lint
+            npm run --if-present test
+            npm run --if-present build
+            popd >/dev/null
+            echo "::endgroup::"
+          done

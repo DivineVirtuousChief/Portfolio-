@@ -1,0 +1,28 @@
+name: Release Readiness (No Publishing)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  package-dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "22"
+      - name: Validate package archives without publishing
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t manifests < <(find . -name package.json -not -path '*/node_modules/*' -not -path '*/generated/*' -not -path './.git/*' | sort)
+          if [ "${#manifests[@]}" -eq 0 ]; then
+            echo "No Node packages found."
+            exit 0
+          fi
+          for manifest in "${manifests[@]}"; do
+            package_dir="$(dirname "$manifest")"
+            echo "Dry-run package: $package_dir"
+            (cd "$package_dir" && npm pack --dry-run --ignore-scripts --json)
+          done
+          echo "Readiness validation only. No package or GitHub release was published."
