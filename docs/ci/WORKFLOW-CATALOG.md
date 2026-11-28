@@ -4,6 +4,15 @@
 
 This library provides cross-cutting CI, security, governance, documentation, triage, and evidence workflows. Workflows use read-only permissions by default. Write access is granted only to issue triage, which creates and applies labels.
 
+## Governance documents
+
+The branch now includes the proposed governance layer:
+
+- [BGLA GitHub Actions Library Charter](../governance/BGLA-GITHUB-ACTIONS-LIBRARY-CHARTER.md) — institutional purpose, authority boundaries, document hierarchy, fail-closed principles, release boundaries, and ratification status.
+- [BGLA GitHub Actions Teaching Sheet](../governance/BGLA-GITHUB-ACTIONS-TEACHING-SHEET.md) — target contracts for identity, policy, provenance, compliance evidence, and governance validation.
+
+Both documents are **Proposed Draft — Pending Institutional Review and Ratification**. Their presence in GitHub does not constitute institutional adoption.
+
 ## Workflows introduced
 
 | Workflow | Trigger | Function |
@@ -40,6 +49,17 @@ Those PRs remain separate changes. Their workflows are not present on main at th
 - Secret scanning and CodeQL depend on GitHub Actions execution and repository feature availability.
 - Dependency Review is gated by the repository variable BGLA_DEPENDENCY_REVIEW_ENABLED=true. Enable the repository dependency graph first; until then, the check reports a skip rather than a false pass.
 - Dependabot is configured for GitHub Actions updates. Add npm package directories after the corresponding module packages are merged into the default branch.
+
+## Important implementation gap
+
+The existing workflows are a cross-cutting CI and governance foundation. They are **not yet** the five reusable composite actions described in the Teaching Sheet. In particular:
+
+- CI metadata archiving is not signed build provenance.
+- Workflow execution is not, by itself, cryptographic identity verification.
+- A normal GitHub artifact is not an immutable or append-only compliance ledger.
+- No production deployment or release promotion is authorized by this library.
+
+The next implementation module must add and test the five action contracts before describing the library as a complete reusable action suite.
 
 ## Repository settings to review
 
